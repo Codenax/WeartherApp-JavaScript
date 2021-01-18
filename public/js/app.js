@@ -11,7 +11,7 @@ const cityInput = document.getElementById('cityInput');
 const historyElm = document.getElementById('history');
 const masterHistory = document.getElementById('master-history');
 const API_KEY = '5bbb36688b0388dcd67ba24d962617e0';
-const BASE_URL = `http://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}`;
+const BASE_URL = `https://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}`;
 const ICON_URL = 'http://openweathermap.org/img/w/';
 const DEFAULT_CITY = 'KUALA LUMPUR , MALAYSIA'
 window.onload = function () {
@@ -28,7 +28,7 @@ window.onload = function () {
                 getWeatherData(e.target.value)
                 e.target.value = ''
             } else {
-                alert('City not found,Please provide valid city name')
+                alert('City not found,Please provide valid city name3')
             }
         }
     })
@@ -58,7 +58,7 @@ function getWeatherData(city = DEFAULT_CITY, coords) {
         })
         .catch(e => {
             console.log(e)
-            alert('City not found,Please provide valid city name')
+            alert('City not found,Please provide valid city name2')
         })
 }
 
