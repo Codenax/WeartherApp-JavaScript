@@ -4,7 +4,10 @@
   "description": "Search Weather by City Name",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "watch": "node-sass public/sass/main.scss public/css/style.css -w",
+    "dev": "node-sass public/sass/main.scss public/css/style.css"
+    
   },
   "keywords": [
     "Jb"
@@ -15,7 +18,8 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.11.12"
+    "mongoose": "^5.11.12",
+    "node-sass": "^5.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
