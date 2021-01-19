@@ -21,12 +21,34 @@ window.onload = function () {
         e => {
             getWeatherData()
         })
+
+    axios.get('/api/history')
+        .then(({ data }) => {
+            if (data.length > 0) {
+                updateHistory(data)
+            } else {
+                historyElm.innerHTML = 'There is no history'
+            }
+        })
+        .catch(e => {
+            console.log(e)
+            alert('Error Occurred')
+        })
+     
     cityInput.addEventListener('keypress', function (e) {
 
         if (e.key === 'Enter') {
             if (e.target.value) {
-                getWeatherData(e.target.value)
-                e.target.value = ''
+                getWeatherData(e.target.value,null,weather =>{
+                    e.target.value=''
+                    axios.post('/api/history', weather)
+                        .then(({data})=>updateHistory(data))
+                        .catch(e=>{
+                            console.log(e)
+                            alert("Error Occurred")
+                        })
+                })
+                
             } else {
                 alert('City not found,Please provide valid city name3')
             }
@@ -34,7 +56,7 @@ window.onload = function () {
     })
 }
 
-function getWeatherData(city = DEFAULT_CITY, coords) {
+function getWeatherData(city = DEFAULT_CITY, coords,cb ) {
     let url = BASE_URL
 
     city === null ?
@@ -54,7 +76,8 @@ function getWeatherData(city = DEFAULT_CITY, coords) {
                 timezone: data.timezone
             }
             setWeather(weather)
-            console.log(data)
+                if(cb) cb(weather)
+            // console.log(data)
         })
         .catch(e => {
             console.log(e)
@@ -80,4 +103,36 @@ function setWeather(weather) {
         + currentdate.getMinutes() + ":"
         + currentdate.getSeconds()
     timezone.innerHTML = datetime.toLocaleString()
+}
+
+
+function updateHistory(history){
+
+historyElm.innerHTML = ''
+history = history.reverse()
+
+    history.forEach(h => {
+        let tempHistory = masterHistory.cloneNode(true)
+        tempHistory.id= ''
+        tempHistory.getElementsByClassName('condition')[0].src=`${ICON_URL}${h.icon}.png`
+        tempHistory.getElementsByClassName('city')[0].innerHTML= h.name
+        tempHistory.getElementsByClassName('country')[0].innerHTML= h.country
+        tempHistory.getElementsByClassName('main')[0].innerHTML= h.main
+        tempHistory.getElementsByClassName('description')[0].innerHTML= h.description
+        tempHistory.getElementsByClassName('temp')[0].innerHTML= h.temp
+        tempHistory.getElementsByClassName('pressure')[0].innerHTML= h.pressure
+        tempHistory.getElementsByClassName('humidity')[0].innerHTML= h.humidity
+
+        const d = new Date((new Date().getTime()) - h.timezone / 10000)
+        var currentdate = new Date(d);
+        var datetime = "Last Sync: " + currentdate.getDate() + "/"
+            + (currentdate.getMonth() + 1) + "/"
+            + currentdate.getFullYear() + " Time "
+            + currentdate.getHours() + ":"
+            + currentdate.getMinutes() + ":"
+            + currentdate.getSeconds()
+        tempHistory.getElementsByClassName('timezone')[0].innerHTML= datetime.toLocaleString()
+        historyElm.appendChild(tempHistory)
+    })
+
 }
