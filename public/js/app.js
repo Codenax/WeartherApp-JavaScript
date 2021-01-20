@@ -27,7 +27,7 @@ window.onload = function () {
             getWeatherData()
         })
 
-    axios.get('../api/history')
+    axios.get('/api/history')
         .then(({ data }) => {
             if (data.length > 0) {
                 updateHistory(data)
