@@ -1,26 +1,321 @@
-html, body{
-    margin:0;
-    padding:0;
+$text-c-pr: #393939;
+$primary-c: #40ceb2;
+$primary-c-2: #ff4e00;
+$primary-c-t: #33ceff;
+$primary-c-bo: #999999;
+$primary-c-bo-2: #d8d8d8;
+$background-c: #ffffff;
+$background-c-2: #f9f9f9;
+$primary-c-5: #ff4d005d;
+
+$text-sh: 3px 1px 5px #0000009c;
+$card-sh-2: 0 0px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19);
+$card-sh-3: 0 0 59px rgba(255, 77, 0, 0.397);
+$primary-sh: 0 0 20px 0 rgba(0, 162, 255, 0.342);
+$primary-sh-2: 0px 0px 9px 3px rgba(0, 162, 255, 0.342);
+
+
+
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    background: #D8FED7;
+    
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    background: #50C9C3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #96DEDA, #50C9C3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #96DEDA, #50C9C3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
 }
-#left{
-    width: 50%;
+
+h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: left;
+}
+h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: $text-c-pr;
+    text-transform: capitalize;
+    text-align: left;
+}
+
+.main-body {
     height: 100vh;
-}
-#right{
-    width: 50%;
-    min-height: 100vh;
-    background: palegreen;
-}
-#branding{
-    width:200px;
-    height: auto;
-}
-#condition{
-    width: 100px;
-    height: auto;
-}
-#master-history{
-    display: none;
+    width: 100%;
+    background: #50C9C3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #96DEDA, #50C9C3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #96DEDA, #50C9C3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    background-image: url("/public/img/bg-weather.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    .app-body {
+        height: 100%;
+        width: 100%;
+        background-color: white;
+        border-radius: 2rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: $card-sh-2;
+        .sideBar{
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            position: absolute;
+            border-radius: 2rem;
+            background-color:#12c2f7ef ;
+            color: white;
+            transition: left .5s;
+            .closebtn{
+                padding: 2rem 2rem;
+                text-align: right;
+                display: block;
+                color: white;
+                
+                i{
+                    font-size: 2rem;
+                    cursor: pointer;
+                }
+            }
+            h2{
+                text-align: center;
+                font-size: 1.8rem;
+               margin-top: 50%;
+            }
+        }
+        .top-bar{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            padding: .5rem 1.5rem;
+            background: #FF512F;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to bottom, #DD2476, #FF512F);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to bottom, #DD2476, #FF512F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            
+            
+            padding-bottom: 3rem;
+            margin-bottom: -3rem;
+            border-radius: 2rem;
+            color: white;
+            border-bottom-right-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+            .navigation-menu{
+                padding: .5rem 0;
+                cursor: pointer;
+                i{
+                    font-size: 1.5rem;
+                    color: white;
+                }
+            }
+            h3{
+                font-weight: 700;
+                text-transform: uppercase;
+                display: inline-block;
+                position: absolute;
+                top: .8rem;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            h5{
+                font-size: 1rem;
+                font-weight: 900;
+                display: inline-block;
+                position: absolute;
+                right: 2.5rem;
+                top: 1rem;
+                
+            }
+          
+        }
+        .current-search-result {
+            width: 100%;
+            height: 245px;
+            border-radius: 2rem;
+            border-bottom-right-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+            background: #5433FF;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to bottom, #A5FECB, #20BDFF, #5433FF);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to bottom, #A5FECB, #20BDFF, #5433FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            
+            
+            position: relative;
+            margin-bottom: -2rem;
+
+            .contain-area {
+                background-color: white;
+                border-radius: 2rem;
+                position: absolute;
+                top: 3rem;
+                left: 50%;
+                transform: translateX(-50%);
+                height: 140px;
+                width: 270px;
+                padding: 0rem 1rem;
+                border: solid 0.1rem $primary-c-2;
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 0;
+                box-shadow: -10px 10px #23bcec;
+
+                h3 {
+                    font-size: 1.5rem;
+                    color: $primary-c-t;
+                    text-align: center;
+                    font-weight: 900;
+                }
+
+                h4 {
+                    font-size: 1.3rem;
+                    color: $primary-c-2;
+                    text-align: center;
+                    font-weight: 600;
+                }
+                .condition {
+                    width: 60px;
+                    height: auto;
+                }
+                .informetion-area {
+                    margin: auto;
+                    margin-top: -1rem;
+                }
+            }
+            .input-group {
+                position: absolute;
+                bottom: 2rem;
+                width: 90%;
+                left: 50%;
+                transform: translateX(-50%);
+               
+
+                .form-control {
+                    border-radius: 1rem;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                    padding: 1.375rem 0.75rem;
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    border-color: $primary-c-2;
+                    box-shadow: 0 0 5px 0 #28a745;
+                    border-right: 0;
+                }
+                .input-group-prepend {
+                 
+                    .input-group-text {
+                        background-color: $primary-c-2;
+                        border-radius: 5rem;
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                        box-shadow: 0 0 5px 0 #28a745;
+                        border-color: $primary-c-2;
+                        z-index: 5;
+                        cursor: pointer;
+
+                        i {
+                            font-size: 1rem;
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+
+        .recent-search-result::-webkit-scrollbar {
+            display: none;
+        }
+        .heading {
+            width: 100%;
+            background: #FF512F;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to bottom, #DD2476, #FF512F);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to bottom, #DD2476, #FF512F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            
+            
+            
+            z-index: 2;
+            position: relative;
+            display: inline-block;
+            border-top-right-radius: 2rem;
+            border-top-left-radius: 2rem;
+
+            padding-bottom: 2rem;
+
+            h3 {
+                line-height: 3rem;
+                padding: 0rem;
+                margin: 0;
+                text-align: center;
+                color: white;
+                font-size: 1.4rem;
+                font-weight: 700;
+            }
+        }
+        .recent-search-result {
+            margin-top: -2rem;
+            width: 100%;
+            height: 52vh;
+            padding: 1rem 1.5rem;
+            background-color: white;
+            border-radius: 2rem;
+            // border-top-left-radius: 0;
+            overflow: hidden;
+            overflow: scroll;
+            z-index: 5;
+            position: relative;
+            h3{
+                text-align: center;
+                color: #28a745;
+               
+            }
+            .master-history{
+                display: none;
+            }
+            .card-body {
+                padding: 1rem 1rem;
+                width: 100%;
+                height: auto;
+                border-radius: 1rem;
+                border-color: $primary-c-5;
+                box-shadow: $primary-sh;
+                .werther-img {
+                    float: left;
+                    margin-top: 1rem;
+                }
+                .informetion-area {
+                    margin-left: 5.5rem;
+                    h3{
+                        text-align: left;
+                        color: $primary-c-2;
+                        font-weight: 700;
+                       
+                    }
+                }
+            }
+           
+        }
+        .footer{
+            width: 100%;
+            height: 4rem;
+            margin-top: -2rem;
+            background: #5433FF;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to bottom, #A5FECB, #20BDFF, #5433FF);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to bottom, #A5FECB, #20BDFF, #5433FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            
+
+            padding-top: 2.5rem;
+            border-radius: 2rem;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            h5{
+                text-align: center;
+                font-size: 1rem;
+                color: white;
+                font-weight: 500;
+            }
+        }
+    }
 }

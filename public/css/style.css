@@ -1,25 +1,253 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: #D8FED7; }
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  background: #50C9C3;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #96DEDA, #50C9C3);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #96DEDA, #50C9C3);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ }
 
-#left {
-  width: 50%;
-  height: 100vh; }
+h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: left; }
 
-#right {
-  width: 50%;
-  min-height: 100vh;
-  background: palegreen; }
+h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #393939;
+  text-transform: capitalize;
+  text-align: left; }
 
-#branding {
-  width: 200px;
-  height: auto; }
-
-#condition {
-  width: 100px;
-  height: auto; }
-
-#master-history {
-  display: none; }
+.main-body {
+  height: 100vh;
+  width: 100%;
+  background: #50C9C3;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #96DEDA, #50C9C3);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #96DEDA, #50C9C3);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-image: url("/public/img/bg-weather.jpg");
+  background-attachment: fixed;
+  background-size: cover; }
+  .main-body .app-body {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    border-radius: 2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19); }
+    .main-body .app-body .sideBar {
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+      position: absolute;
+      border-radius: 2rem;
+      background-color: #12c2f7ef;
+      color: white;
+      transition: left .5s; }
+      .main-body .app-body .sideBar .closebtn {
+        padding: 2rem 2rem;
+        text-align: right;
+        display: block;
+        color: white; }
+        .main-body .app-body .sideBar .closebtn i {
+          font-size: 2rem;
+          cursor: pointer; }
+      .main-body .app-body .sideBar h2 {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-top: 50%; }
+    .main-body .app-body .top-bar {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      padding: .5rem 1.5rem;
+      background: #FF512F;
+      /* fallback for old browsers */
+      background: -webkit-linear-gradient(to bottom, #DD2476, #FF512F);
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to bottom, #DD2476, #FF512F);
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      padding-bottom: 3rem;
+      margin-bottom: -3rem;
+      border-radius: 2rem;
+      color: white;
+      border-bottom-right-radius: 0 !important;
+      border-bottom-left-radius: 0 !important; }
+      .main-body .app-body .top-bar .navigation-menu {
+        padding: .5rem 0;
+        cursor: pointer; }
+        .main-body .app-body .top-bar .navigation-menu i {
+          font-size: 1.5rem;
+          color: white; }
+      .main-body .app-body .top-bar h3 {
+        font-weight: 700;
+        text-transform: uppercase;
+        display: inline-block;
+        position: absolute;
+        top: .8rem;
+        left: 50%;
+        transform: translateX(-50%); }
+      .main-body .app-body .top-bar h5 {
+        font-size: 1rem;
+        font-weight: 900;
+        display: inline-block;
+        position: absolute;
+        right: 2.5rem;
+        top: 1rem; }
+    .main-body .app-body .current-search-result {
+      width: 100%;
+      height: 245px;
+      border-radius: 2rem;
+      border-bottom-right-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      background: #5433FF;
+      /* fallback for old browsers */
+      background: -webkit-linear-gradient(to bottom, #A5FECB, #20BDFF, #5433FF);
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to bottom, #A5FECB, #20BDFF, #5433FF);
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      position: relative;
+      margin-bottom: -2rem; }
+      .main-body .app-body .current-search-result .contain-area {
+        background-color: white;
+        border-radius: 2rem;
+        position: absolute;
+        top: 3rem;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 140px;
+        width: 270px;
+        padding: 0rem 1rem;
+        border: solid 0.1rem #ff4e00;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 0;
+        box-shadow: -10px 10px #23bcec; }
+        .main-body .app-body .current-search-result .contain-area h3 {
+          font-size: 1.5rem;
+          color: #33ceff;
+          text-align: center;
+          font-weight: 900; }
+        .main-body .app-body .current-search-result .contain-area h4 {
+          font-size: 1.3rem;
+          color: #ff4e00;
+          text-align: center;
+          font-weight: 600; }
+        .main-body .app-body .current-search-result .contain-area .condition {
+          width: 60px;
+          height: auto; }
+        .main-body .app-body .current-search-result .contain-area .informetion-area {
+          margin: auto;
+          margin-top: -1rem; }
+      .main-body .app-body .current-search-result .input-group {
+        position: absolute;
+        bottom: 2rem;
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%); }
+        .main-body .app-body .current-search-result .input-group .form-control {
+          border-radius: 1rem;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          padding: 1.375rem 0.75rem;
+          font-size: 1.4rem;
+          font-weight: 600;
+          border-color: #ff4e00;
+          box-shadow: 0 0 5px 0 #28a745;
+          border-right: 0; }
+        .main-body .app-body .current-search-result .input-group .input-group-prepend .input-group-text {
+          background-color: #ff4e00;
+          border-radius: 5rem;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          box-shadow: 0 0 5px 0 #28a745;
+          border-color: #ff4e00;
+          z-index: 5;
+          cursor: pointer; }
+          .main-body .app-body .current-search-result .input-group .input-group-prepend .input-group-text i {
+            font-size: 1rem;
+            color: white; }
+    .main-body .app-body .recent-search-result::-webkit-scrollbar {
+      display: none; }
+    .main-body .app-body .heading {
+      width: 100%;
+      background: #FF512F;
+      /* fallback for old browsers */
+      background: -webkit-linear-gradient(to bottom, #DD2476, #FF512F);
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to bottom, #DD2476, #FF512F);
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      z-index: 2;
+      position: relative;
+      display: inline-block;
+      border-top-right-radius: 2rem;
+      border-top-left-radius: 2rem;
+      padding-bottom: 2rem; }
+      .main-body .app-body .heading h3 {
+        line-height: 3rem;
+        padding: 0rem;
+        margin: 0;
+        text-align: center;
+        color: white;
+        font-size: 1.4rem;
+        font-weight: 700; }
+    .main-body .app-body .recent-search-result {
+      margin-top: -2rem;
+      width: 100%;
+      height: 52vh;
+      padding: 1rem 1.5rem;
+      background-color: white;
+      border-radius: 2rem;
+      overflow: hidden;
+      overflow: scroll;
+      z-index: 5;
+      position: relative; }
+      .main-body .app-body .recent-search-result h3 {
+        text-align: center;
+        color: #28a745; }
+      .main-body .app-body .recent-search-result .master-history {
+        display: none; }
+      .main-body .app-body .recent-search-result .card-body {
+        padding: 1rem 1rem;
+        width: 100%;
+        height: auto;
+        border-radius: 1rem;
+        border-color: #ff4d005d;
+        box-shadow: 0 0 20px 0 rgba(0, 162, 255, 0.342); }
+        .main-body .app-body .recent-search-result .card-body .werther-img {
+          float: left;
+          margin-top: 1rem; }
+        .main-body .app-body .recent-search-result .card-body .informetion-area {
+          margin-left: 5.5rem; }
+          .main-body .app-body .recent-search-result .card-body .informetion-area h3 {
+            text-align: left;
+            color: #ff4e00;
+            font-weight: 700; }
+    .main-body .app-body .footer {
+      width: 100%;
+      height: 4rem;
+      margin-top: -2rem;
+      background: #5433FF;
+      /* fallback for old browsers */
+      background: -webkit-linear-gradient(to bottom, #A5FECB, #20BDFF, #5433FF);
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to bottom, #A5FECB, #20BDFF, #5433FF);
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      padding-top: 2.5rem;
+      border-radius: 2rem;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0; }
+      .main-body .app-body .footer h5 {
+        text-align: center;
+        font-size: 1rem;
+        color: white;
+        font-weight: 500; }

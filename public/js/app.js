@@ -1,3 +1,5 @@
+
+const search = document.getElementById('search');
 const condition = document.getElementById('condition');
 const city = document.getElementById('city');
 const country = document.getElementById('country');
@@ -15,6 +17,9 @@ const BASE_URL = `https://api.openweathermap.org/data/2.5/weather?appid=${API_KE
 const ICON_URL = 'http://openweathermap.org/img/w/';
 const DEFAULT_CITY = 'KUALA LUMPUR , MALAYSIA'
 window.onload = function () {
+
+    currentTime();
+
     navigator.geolocation.getCurrentPosition(s => {
         getWeatherData(null, s.coords)
     },
@@ -27,7 +32,7 @@ window.onload = function () {
             if (data.length > 0) {
                 updateHistory(data)
             } else {
-                historyElm.innerHTML = 'There is no history'
+                historyElm.innerHTML = '<h3>There is no history</h3>'
             }
         })
         .catch(e => {
@@ -50,11 +55,31 @@ window.onload = function () {
                 })
                 
             } else {
-                alert('City not found,Please provide valid city name3')
+                alert('City not found,Please provide valid city name')
             }
         }
     })
+    search.addEventListener('click', function () {
+        if (cityInput.value) {
+            getWeatherData(cityInput.value,null,weather =>{
+                cityInput.value=''
+                axios.post('/api/history', weather)
+                    .then(({data})=>updateHistory(data))
+                    .catch(e=>{
+                        console.log(e)
+                        alert("Error Occurred")
+                    })
+            })
+            
+        } else {
+            alert('City not found,Please provide valid city name')
+        }
+       
+           
+        
+    })
 }
+
 
 function getWeatherData(city = DEFAULT_CITY, coords,cb ) {
     let url = BASE_URL
@@ -70,7 +95,7 @@ function getWeatherData(city = DEFAULT_CITY, coords,cb ) {
                 country: data.sys.country,
                 main: data.weather[0].main,
                 description: data.weather[0].description,
-                temp: data.main.temp,
+                temp:  (Math.round((data.main.temp-273.15) * 100) / 100).toFixed(0),
                 pressure: data.main.pressure,
                 humidity: data.main.humidity,
                 timezone: data.timezone
@@ -81,7 +106,7 @@ function getWeatherData(city = DEFAULT_CITY, coords,cb ) {
         })
         .catch(e => {
             console.log(e)
-            alert('City not found,Please provide valid city name2')
+            alert('City not found,Please provide valid city name')
         })
 }
 
@@ -96,9 +121,9 @@ function setWeather(weather) {
     humidity.innerHTML = weather.humidity
     const d = new Date((new Date().getTime()) - weather.timezone / 10000)
     var currentdate = new Date(d);
-    var datetime = "Last Sync: " + currentdate.getDate() + "/"
+    var datetime = currentdate.getDate() + "/"
         + (currentdate.getMonth() + 1) + "/"
-        + currentdate.getFullYear() + " Time "
+        + currentdate.getFullYear() + ", Time: "
         + currentdate.getHours() + ":"
         + currentdate.getMinutes() + ":"
         + currentdate.getSeconds()
@@ -125,9 +150,9 @@ history = history.reverse()
 
         const d = new Date((new Date().getTime()) - h.timezone / 10000)
         var currentdate = new Date(d);
-        var datetime = "Last Sync: " + currentdate.getDate() + "/"
+        var datetime =  currentdate.getDate() + "/"
             + (currentdate.getMonth() + 1) + "/"
-            + currentdate.getFullYear() + " Time "
+            + currentdate.getFullYear() + ", Time: "
             + currentdate.getHours() + ":"
             + currentdate.getMinutes() + ":"
             + currentdate.getSeconds()
@@ -136,3 +161,40 @@ history = history.reverse()
     })
 
 }
+
+
+
+/* clock setup */
+  
+  function currentTime() {
+    var date = new Date(); /* creating object of Date class */
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+    var midday = "AM";
+    midday = (hour >= 12) ? "PM" : "AM"; /* assigning AM/PM */
+    hour = (hour == 0) ? 12 : ((hour > 12) ? (hour - 12): hour); /* assigning hour in 12-hour format */
+    hour = updateTime(hour);
+    min = updateTime(min);
+    sec = updateTime(sec);
+    document.getElementById("timeNow").innerText = hour + " : " + min + " : " + sec + " " + midday; /* adding time to the div */
+      var t = setTimeout(currentTime, 1000); /* setting timer */
+  }
+  
+  function updateTime(k) { /* appending 0 before time elements if less than 10 */
+    if (k < 10) {
+      return "0" + k;
+    }
+    else {
+      return k;
+    }
+  }
+/* clock setup end */
+
+
+function openSideBar(){
+    document.getElementById("sideBar").style.left="0";
+  }
+  function closeSideBar(){
+    document.getElementById("sideBar").style.left="-100%";
+  }
