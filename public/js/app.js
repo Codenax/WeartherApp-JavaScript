@@ -46,7 +46,7 @@ window.onload = function () {
             if (e.target.value) {
                 getWeatherData(e.target.value,null,weather =>{
                     e.target.value=''
-                    axios.post('/api/history', weather)
+                    axios.post('../api/history', weather)
                         .then(({data})=>updateHistory(data))
                         .catch(e=>{
                             console.log(e)
@@ -63,7 +63,7 @@ window.onload = function () {
         if (cityInput.value) {
             getWeatherData(cityInput.value,null,weather =>{
                 cityInput.value=''
-                axios.post('/api/history', weather)
+                axios.post('../api/history', weather)
                     .then(({data})=>updateHistory(data))
                     .catch(e=>{
                         console.log(e)
