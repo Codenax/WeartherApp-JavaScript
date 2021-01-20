@@ -8,7 +8,6 @@
     "watch": "node-sass public/sass/main.scss public/css/style.css -w",
     "dev": "node-sass public/sass/main.scss public/css/style.css"
   },
- 
   "keywords": [
     "Jb"
   ],
@@ -18,19 +17,18 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "moment-timezone": "^0.5.32",
     "mongoose": "^5.11.12",
     "node-sass": "^5.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
   },
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Codenax/WeartherApp-JavaScript.git"
   },
   "engines": {
-    "node" : "12.16.2"
+    "node": "12.16.2"
   }
- 
 }

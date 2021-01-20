@@ -39,21 +39,21 @@ window.onload = function () {
             console.log(e)
             alert('Error Occurred')
         })
-     
+
     cityInput.addEventListener('keypress', function (e) {
 
         if (e.key === 'Enter') {
             if (e.target.value) {
-                getWeatherData(e.target.value,null,weather =>{
-                    e.target.value=''
+                getWeatherData(e.target.value, null, weather => {
+                    e.target.value = ''
                     axios.post('../api/history', weather)
-                        .then(({data})=>updateHistory(data))
-                        .catch(e=>{
+                        .then(({ data }) => updateHistory(data))
+                        .catch(e => {
                             console.log(e)
                             alert("Error Occurred")
                         })
                 })
-                
+
             } else {
                 alert('City not found,Please provide valid city name')
             }
@@ -61,27 +61,27 @@ window.onload = function () {
     })
     search.addEventListener('click', function () {
         if (cityInput.value) {
-            getWeatherData(cityInput.value,null,weather =>{
-                cityInput.value=''
+            getWeatherData(cityInput.value, null, weather => {
+                cityInput.value = ''
                 axios.post('../api/history', weather)
-                    .then(({data})=>updateHistory(data))
-                    .catch(e=>{
+                    .then(({ data }) => updateHistory(data))
+                    .catch(e => {
                         console.log(e)
                         alert("Error Occurred")
                     })
             })
-            
+
         } else {
             alert('City not found,Please provide valid city name')
         }
-       
-           
-        
+
+
+
     })
 }
 
 
-function getWeatherData(city = DEFAULT_CITY, coords,cb ) {
+function getWeatherData(city = DEFAULT_CITY, coords, cb) {
     let url = BASE_URL
 
     city === null ?
@@ -95,13 +95,14 @@ function getWeatherData(city = DEFAULT_CITY, coords,cb ) {
                 country: data.sys.country,
                 main: data.weather[0].main,
                 description: data.weather[0].description,
-                temp:  (Math.round((data.main.temp-273.15) * 100) / 100).toFixed(0),
+                temp: (Math.round((data.main.temp - 273.15) * 100) / 100).toFixed(0),
                 pressure: data.main.pressure,
                 humidity: data.main.humidity,
-                timezone: data.timezone
+                
+                timezone: 'Local Date: '+  moment().utcOffset((data.timezone/1000)).format('DD-MM-YYYY') + ', Time: ' + moment().utcOffset((data.timezone/60)).format("h:mm A")
             }
             setWeather(weather)
-                if(cb) cb(weather)
+            if (cb) cb(weather)
             // console.log(data)
         })
         .catch(e => {
@@ -119,44 +120,40 @@ function setWeather(weather) {
     temp.innerHTML = weather.temp
     pressure.innerHTML = weather.pressure
     humidity.innerHTML = weather.humidity
-    const d = new Date((new Date().getTime()) - weather.timezone / 10000)
-    var currentdate = new Date(d);
-    var datetime = currentdate.getDate() + "/"
-        + (currentdate.getMonth() + 1) + "/"
-        + currentdate.getFullYear() + ", Time: "
-        + currentdate.getHours() + ":"
-        + currentdate.getMinutes() + ":"
-        + currentdate.getSeconds()
-    timezone.innerHTML = datetime.toLocaleString()
+    // let timezone2 = weather.timezone//needs to be converted in minutes 
+    // let timezoneInMinutes = timezone2 / 60
+    // let currTime = moment().utcOffset(timezoneInMinutes).format("h:mm A")
+    // let dateConvert = moment(timezone2 / 10000);
+    // let date = moment().utcOffset(dateConvert).format('DD-MM-YYYY')
+    timezone.innerHTML = weather.timezone
 }
 
 
-function updateHistory(history){
+function updateHistory(history) {
 
-historyElm.innerHTML = ''
-history = history.reverse()
+    historyElm.innerHTML = ''
+    history = history.reverse()
 
     history.forEach(h => {
         let tempHistory = masterHistory.cloneNode(true)
-        tempHistory.id= ''
-        tempHistory.getElementsByClassName('condition')[0].src=`${ICON_URL}${h.icon}.png`
-        tempHistory.getElementsByClassName('city')[0].innerHTML= h.name
-        tempHistory.getElementsByClassName('country')[0].innerHTML= h.country
-        tempHistory.getElementsByClassName('main')[0].innerHTML= h.main
-        tempHistory.getElementsByClassName('description')[0].innerHTML= h.description
-        tempHistory.getElementsByClassName('temp')[0].innerHTML= h.temp
-        tempHistory.getElementsByClassName('pressure')[0].innerHTML= h.pressure
-        tempHistory.getElementsByClassName('humidity')[0].innerHTML= h.humidity
+        tempHistory.id = ''
+        tempHistory.getElementsByClassName('condition')[0].src = `${ICON_URL}${h.icon}.png`
+        tempHistory.getElementsByClassName('city')[0].innerHTML = h.name
+        tempHistory.getElementsByClassName('country')[0].innerHTML = h.country
+        tempHistory.getElementsByClassName('main')[0].innerHTML = h.main
+        tempHistory.getElementsByClassName('description')[0].innerHTML = h.description
+        tempHistory.getElementsByClassName('temp')[0].innerHTML = h.temp
+        tempHistory.getElementsByClassName('pressure')[0].innerHTML = h.pressure
+        tempHistory.getElementsByClassName('humidity')[0].innerHTML = h.humidity
 
-        const d = new Date((new Date().getTime()) - h.timezone / 10000)
-        var currentdate = new Date(d);
-        var datetime =  currentdate.getDate() + "/"
-            + (currentdate.getMonth() + 1) + "/"
-            + currentdate.getFullYear() + ", Time: "
-            + currentdate.getHours() + ":"
-            + currentdate.getMinutes() + ":"
-            + currentdate.getSeconds()
-        tempHistory.getElementsByClassName('timezone')[0].innerHTML= datetime.toLocaleString()
+        // let timezone2 = h.timezone//needs to be converted in minutes 
+        // let timezoneInMinutes = timezone2 / 60
+        // let currTime = moment().utcOffset(timezoneInMinutes).format("h:mm A")
+        // let dateConvert = moment(timezone2 / 10000);
+        // let date = moment().utcOffset(dateConvert).format('DD-MM-YYYY')
+        // let datetime = date + ', Time: ' + currTime
+
+        tempHistory.getElementsByClassName('timezone')[0].innerHTML = h.timezone
         historyElm.appendChild(tempHistory)
     })
 
@@ -165,36 +162,36 @@ history = history.reverse()
 
 
 /* clock setup */
-  
-  function currentTime() {
+
+function currentTime() {
     var date = new Date(); /* creating object of Date class */
     var hour = date.getHours();
     var min = date.getMinutes();
     var sec = date.getSeconds();
     var midday = "AM";
     midday = (hour >= 12) ? "PM" : "AM"; /* assigning AM/PM */
-    hour = (hour == 0) ? 12 : ((hour > 12) ? (hour - 12): hour); /* assigning hour in 12-hour format */
+    hour = (hour == 0) ? 12 : ((hour > 12) ? (hour - 12) : hour); /* assigning hour in 12-hour format */
     hour = updateTime(hour);
     min = updateTime(min);
     sec = updateTime(sec);
     document.getElementById("timeNow").innerText = hour + " : " + min + " : " + sec + " " + midday; /* adding time to the div */
-      var t = setTimeout(currentTime, 1000); /* setting timer */
-  }
-  
-  function updateTime(k) { /* appending 0 before time elements if less than 10 */
+    var t = setTimeout(currentTime, 1000); /* setting timer */
+}
+
+function updateTime(k) { /* appending 0 before time elements if less than 10 */
     if (k < 10) {
-      return "0" + k;
+        return "0" + k;
     }
     else {
-      return k;
+        return k;
     }
-  }
+}
 /* clock setup end */
 
 
-function openSideBar(){
-    document.getElementById("sideBar").style.left="0";
-  }
-  function closeSideBar(){
-    document.getElementById("sideBar").style.left="-100%";
-  }
+function openSideBar() {
+    document.getElementById("sideBar").style.left = "0";
+}
+function closeSideBar() {
+    document.getElementById("sideBar").style.left = "-100%";
+}
